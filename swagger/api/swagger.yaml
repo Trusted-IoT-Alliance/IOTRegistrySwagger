@@ -221,7 +221,7 @@ paths:
     post:
       summary: "generate signature for registerName"
       description: "generate signature for registerName"
-      operationId: "generateRegisterNameSigPOST"
+      operationId: "generateRegisterNameSig"
       parameters:
       - name: "OwnerName"
         in: "query"
@@ -250,13 +250,13 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Utility"
+      x-swagger-router-controller: "iotregistryware"
 
   /generateRegisterThingSig:
     post:
       summary: "generate signature for registerThing"
       description: "generate signature for registerThing"
-      operationId: "generateRegisterThingSigPOST"
+      operationId: "generateRegisterThingSig"
       parameters:
       - name: "OwnerName"
         in: "query"
@@ -298,12 +298,12 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Utility"
+      x-swagger-router-controller: "iotregistryware"
   /generateRegisterSpecSig:
     post:
       summary: "generate signature for registerSpec"
       description: "generate signature for registerSpec"
-      operationId: "generateRegisterSpecSigPOST"
+      operationId: "generateRegisterSpecSig"
       parameters:
       - name: "SpecName"
         in: "query"
@@ -338,7 +338,7 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Utility"
+      x-swagger-router-controller: "iotregistryware"
       
 definitions:
   Error:

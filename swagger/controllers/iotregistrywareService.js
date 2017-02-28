@@ -32,12 +32,12 @@ exports.generateRegisterNameSig = function(args, res, next) {
   if(!args.Data || !args.Data.value) {
       throw new Error('missing data');
   }
-  if(!args.PrivateKey || !args.PrivateKey.value) {
+  if(!args.PrivateKeyStr || !args.PrivateKeyStr.value) {
       throw new Error('missing PrivateKey');
   }
   var message = args.OwnerName.value + ':' + args.Data.value;
 
-  var sig = messageSigner(message, args.PrivateKey.value);
+  var sig = messageSigner(message, args.PrivateKeyStr.value);
 
   res.end(JSON.stringify({sig: sig.toString('hex')}));
 }
@@ -61,12 +61,12 @@ exports.generateRegisterSpecSig = function(args, res, next) {
   if(!args.Data || !args.Data.value) {
       throw new Error('missing data');
   }
-  if(!args.PrivateKey || !args.PrivateKey.value) {
+  if(!args.PrivateKeyStr || !args.PrivateKeyStr.value) {
       throw new Error('missing PrivateKey');
   }
   var message = args.SpecName.value + ":" + args.OwnerName.value + ":" + args.Data.value;
 
-  var sig = messageSigner(message, args.PrivateKey.value);
+  var sig = messageSigner(message, args.PrivateKeyStr.value);
 
   res.end(JSON.stringify({sig: sig.toString('hex')}));
 }
@@ -95,7 +95,7 @@ exports.generateRegisterThingSig = function(args, res, next) {
   if(!args.Data || !args.Data.value) {
       throw new Error('missing data');
   }
-  if(!args.PrivateKey || !args.PrivateKey.value) {
+  if(!args.PrivateKeyStr || !args.PrivateKeyStr.value) {
       throw new Error('missing PrivateKey');
   }
   var message = args.OwnerName.value
@@ -103,10 +103,10 @@ exports.generateRegisterThingSig = function(args, res, next) {
   args.Identities.value.forEach(function(o) {
       message +=  ':' + o;
   });
-  message += ':' + args.Data.value + ":" + arg.Spec.value;
+  message += ':' + args.Data.value + ":" + args.Spec.value;
 
   console.log("\n\nhere, and\nmessage:" + message)
-  var sig = messageSigner(message, args.PrivateKey.value);
+  var sig = messageSigner(message, args.PrivateKeyStr.value);
 
   res.end(JSON.stringify({sig: sig.toString('hex')}));
 }
@@ -215,7 +215,7 @@ exports.ownerNamePOST = function(args, res, next) {
    * data String data for registerOwnerName
    * returns Boolean
    **/
-  console.log('Create POST');
+  console.log('Owner POST');
   var timerID = setTimeout(function() {
       res.end(JSON.stringify({
           'status': 'OK'
@@ -267,7 +267,7 @@ exports.specPOST = function(args, res, next) {
    * data String specification data
    * returns String
    **/
-  console.log('Create POST');
+  console.log('Spec POST');
   var timerID = setTimeout(function() {
       res.end(JSON.stringify({
           'status': 'OK'
@@ -318,7 +318,7 @@ exports.thingPOST = function(args, res, next) {
    * spec String spec for thing
    * returns Boolean
    **/
-  console.log('Create POST');
+  console.log('Thing POST');
   var timerID = setTimeout(function() {
       res.end(JSON.stringify({
           'status': 'OK'

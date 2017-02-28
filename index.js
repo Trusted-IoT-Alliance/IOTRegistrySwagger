@@ -179,6 +179,8 @@ function registerSpec(opts, user) {
 }
 
 function owner(ownerName, user) {
+     console.log("func: " + func)
+
     return new Promise(function (resolve, reject) {
         query(user, 'owner', ownerName, function (err, data, txid) {
             if (err) {

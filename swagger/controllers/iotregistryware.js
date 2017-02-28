@@ -4,16 +4,16 @@ var url = require('url');
 
 var iotregistryware = require('./iotregistrywareService');
 
-module.exports.generateRegisterNameSigPOST = function generateRegisterNameSigPOST (req, res, next) {
-  iotregistryware.generateRegisterNameSigPOST(req.swagger.params, res, next);
+module.exports.generateRegisterNameSig = function generateRegisterNameSig (req, res, next) {
+  iotregistryware.generateRegisterNameSig(req.swagger.params, res, next);
 };
 
-module.exports.generateRegisterSpecSigPOST = function generateRegisterSpecSigPOST (req, res, next) {
-  iotregistryware.generateRegisterSpecSigPOST(req.swagger.params, res, next);
+module.exports.generateRegisterSpecSig = function generateRegisterSpecSig (req, res, next) {
+  iotregistryware.generateRegisterSpecSig(req.swagger.params, res, next);
 };
 
-module.exports.generateRegisterThingSigPOST = function generateRegisterThingSigPOST (req, res, next) {
-  iotregistryware.generateRegisterThingSigPOST(req.swagger.params, res, next);
+module.exports.generateRegisterThingSig = function generateRegisterThingSig (req, res, next) {
+  iotregistryware.generateRegisterThingSig(req.swagger.params, res, next);
 };
 
 module.exports.ownerGET = function ownerGET (req, res, next) {
