@@ -17,7 +17,7 @@ var config = {
     members: process.env.TUXEDOPOPSWARE_MEMBERS || 'grpc://ec2-54-219-181-242.us-west-1.compute.amazonaws.com:7054',
     peer: process.env.TUXEDOPOPSWARE_PEER || 'grpc://ec2-54-219-181-242.us-west-1.compute.amazonaws.com:7051',
     events: process.env.TUXEDOPOPSWARE_EVENTS || 'grpc://ec2-54-219-181-242.us-west-1.compute.amazonaws.com:7053',
-    chaincodeName: process.env.TUXEDOPOPSWARE_CHAINCODE_NAME || "27df50fe277c798419e15441499dfd2523265055df52cc97b39d53effbd5ae4da60442b5471a6c2c90ff02f74d390e6a1f7e6314556d629664b874a20452f102",
+    chaincodeName: process.env.TUXEDOPOPSWARE_CHAINCODE_NAME || "92b992781c0b6756ada79c8ff46acca232111026b4351d3f6c84c201606e0a6ae6c5af5115f042af2e24ee6e1ae42076d1cbbbea509d4c93f689f79e3be8f630",
 }
 console.log(config);
 module.exports = config;

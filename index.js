@@ -132,19 +132,19 @@ function registerThing(opts, user) {
     var args = new RegisterThingTX()
 
     args.Nonce = new Buffer(opts.Nonce, 'hex');
-    // args.Identities = opts.Identities;
+    // console.log("Nonce: " + opts.Nonce)
+
     args.Identities = []
     opts.Identities.forEach(function(o) {
         args.Identities.push(o);
     })
-    console.log(opts.Identities)
-    console.log(args.Identities)
+    // console.log("\n\nidentities:\n" + args.Identities)
     args.OwnerName = opts.OwnerName
     args.Signature = new Buffer(opts.Signature, 'hex');
     args.Data = opts.Data;
     args.Spec = opts.Spec;
 
-    // var test = args.encode().toString('hex');
+  console.log("\n\n\nargs:\n" + JSON.stringify(args, null, 4) + "\n\n\n");
 
     return new Promise(function (resolve, reject) {
         invoke(user, 'registerThing', args.encode().toString('hex'), function (err, data) {
@@ -179,8 +179,6 @@ function registerSpec(opts, user) {
 }
 
 function owner(ownerName, user) {
-     console.log("func: " + func)
-
     return new Promise(function (resolve, reject) {
         query(user, 'owner', ownerName, function (err, data, txid) {
             if (err) {

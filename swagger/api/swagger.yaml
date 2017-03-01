@@ -80,7 +80,7 @@ paths:
         format: "text"
       - name: "Signature"
         in: "query"
-        description: "sig of nonce + identities + data + spec"
+        description: "sig of ownerName + identities + data + spec"
         required: true
         type: "string"
         format: "text"
@@ -147,7 +147,6 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "iotregistryware"
-
 
   /owner:
     get:

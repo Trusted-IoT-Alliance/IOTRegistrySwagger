@@ -36,6 +36,7 @@ exports.generateRegisterNameSig = function(args, res, next) {
       throw new Error('missing PrivateKey');
   }
   var message = args.OwnerName.value + ':' + args.Data.value;
+  console.log("\n\nmessage:" + message)
 
   var sig = messageSigner(message, args.PrivateKeyStr.value);
 
@@ -65,6 +66,7 @@ exports.generateRegisterSpecSig = function(args, res, next) {
       throw new Error('missing PrivateKey');
   }
   var message = args.SpecName.value + ":" + args.OwnerName.value + ":" + args.Data.value;
+  console.log("\n\nmessage:" + message)
 
   var sig = messageSigner(message, args.PrivateKeyStr.value);
 
@@ -105,8 +107,8 @@ exports.generateRegisterThingSig = function(args, res, next) {
   });
   message += ':' + args.Data.value + ":" + args.Spec.value;
 
-  console.log("\n\nhere, and\nmessage:" + message)
   var sig = messageSigner(message, args.PrivateKeyStr.value);
+  console.log("\n\nmessage: (%s)\nprivate key: (%s)\nsig: (%s)\n\n\n", message, args.PrivateKeyStr, sig.toString('hex'))
 
   res.end(JSON.stringify({sig: sig.toString('hex')}));
 }
@@ -124,7 +126,6 @@ exports.ownerGET = function(args, res, next) {
       }));
   }, 45000);
 
-  console.log("\n\n\n***********" + args.OwnerName + "\n\n::")
   iotregistryware.owner(args.OwnerName.value, USER)
   .then(function(data) {
       console.log('data', data);
@@ -187,7 +188,8 @@ exports.thingGET = function(args, res, next) {
       }));
   }, 45000);
 
-  iotregistryware.thing(args.Nonce.value, USER)
+  console.log("\n\nargs: " + args + "\n\n\n")
+  iotregistryware.thing(args.ThingNonce.value, USER)
   .then(function(data) {
       console.log('data', data);
       if (data.data.result.toString() === '{}') {
@@ -352,7 +354,7 @@ exports.thingPOST = function(args, res, next) {
   if(!opts.Spec) {
       throw new Error('missing spec name');
   }
-
+  console.log("\n\n\nopts:\n" + JSON.stringify(opts, null, 4) + "\n\n\n");
   iotregistryware.registerThing(opts, USER)
   .then(function(result) {
       res.end(JSON.stringify(result));
