@@ -18,7 +18,7 @@ This file defines the interface to the chaincode, specifying
 This file receives requests, formats inputs, and calls to analogue functions in index.js
 
 ### index.js
-This file, called from iotregistrywareService.js, makes calls to the chaincode.  
+Functions in this file, called from iotregistrywareService.js, make calls to the chaincode.  
 
 
 ## Authors
