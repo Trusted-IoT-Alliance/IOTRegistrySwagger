@@ -4,8 +4,8 @@ var url = require('url');
 
 var iotregistryware = require('./iotregistrywareService');
 
-module.exports.generateRegisterNameSig = function generateRegisterNameSig (req, res, next) {
-  iotregistryware.generateRegisterNameSig(req.swagger.params, res, next);
+module.exports.generateRegisterOwnerSig = function generateRegisterOwnerSig (req, res, next) {
+  iotregistryware.generateRegisterOwnerSig(req.swagger.params, res, next);
 };
 
 module.exports.generateRegisterSpecSig = function generateRegisterSpecSig (req, res, next) {

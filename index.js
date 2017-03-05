@@ -3,7 +3,7 @@ var hfc = require('hfc');
 var WebHooks = require('node-webhooks');
 var Types = require('./types.js');
 var RegisterThingTX = Types.RegisterThingTX;
-var RegisterIdentityTX = Types.RegisterIdentityTX;
+var RegisterOwnerTX = Types.RegisterOwnerTX;
 var RegisterSpecTX = Types.RegisterSpecTX;
 var USER;
 var MEMBER_SERVICES;
@@ -109,7 +109,7 @@ function deployBracketStore(user, cb) {
 }
 
 function registerOwner(opts, user) {
-    var args = new RegisterIdentityTX()
+    var args = new RegisterOwnerTX()
 
     args.OwnerName = opts.OwnerName
     args.PubKey = new Buffer(opts.Pubkey, 'hex');

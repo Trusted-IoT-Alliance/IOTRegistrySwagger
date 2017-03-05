@@ -1,5 +1,5 @@
 module.exports = require('protobufjs').newBuilder({})['import']({
-    "package": null,
+   "package": null,
     "messages": [
         {
             "name": "RegisterThingTX",
@@ -43,7 +43,7 @@ module.exports = require('protobufjs').newBuilder({})['import']({
             ]
         },
         {
-            "name": "RegisterIdentityTX",
+            "name": "RegisterOwnerTX",
             "fields": [
                 {
                     "rule": "optional",
