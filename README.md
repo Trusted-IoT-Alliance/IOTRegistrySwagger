@@ -7,7 +7,7 @@ This is a RESTful API for the IOTRegistry chaincode. It was generated using Swag
 <img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/swagger.png" 
 alt="main" border="10"/>
 
-This is swagger user interface. There are nine commands.  
+This is the swagger user interface. There are nine commands.  
 
 Three are for generating signatures:  
 
