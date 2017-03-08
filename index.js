@@ -37,7 +37,7 @@ var initialize = function (ca, peer, hl_events, user, pem, chaincodeName, cb) {
         };
     }
     configChain(pem);
-    getUser(USER, cb);
+    // getUser(USER, cb);
     webHooks = new WebHooks({
         db: './webHooksDB.json'
     });
@@ -50,10 +50,11 @@ var initialize = function (ca, peer, hl_events, user, pem, chaincodeName, cb) {
         console.log("Firing webhook: " + webhookname);
         webHooks.trigger(webhookname, { uuid: event.payload.toString() });
     });
+    cb(null,null);
 };
 
 function configChain(pem) {
-    chain.setMemberServicesUrl(MEMBER_SERVICES, { pem: pem });
+    // chain.setMemberServicesUrl(MEMBER_SERVICES, { pem: pem });
     chain.addPeer(HYPERLEDGER_PEER, { pem: pem });
     chain.eventHubConnect(HL_EVENTS, { pem: pem });
 }
