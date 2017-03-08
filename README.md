@@ -30,11 +30,11 @@ Three are three commands for querying the ledger:
   
 Here is a brief description of each different type of registration:
 
-1. Register an owner
+1. Register an owner  
     This allows for the user to put an "Owner: \<name>" state to the ledger. An owner is an entity that has control over things on the ledger.
-2. Register a thing
+2. Register a thing  
     A thing is an iot device. It can include a set of aliases of its owner, which allows for the thing to be connected to multiple names shared by the same owner.
-3. Register a spec
+3. Register a spec  
     A spec or specification is a specific description of a thing with pertinent information about the thing.
 
 Next let's go through a sample registration and query for owner, thing, and spec. In order to register a thing or a spec, an owner must first be registered.  
