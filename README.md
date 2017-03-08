@@ -21,7 +21,7 @@ There are three for registering a type to the ledger:
 2. registerThing  
 3. registerSpec  
 
-Three are three commands for querying the ledger:
+And there are three commands for querying the ledger:
 
 1. owner  
 2. thing  
