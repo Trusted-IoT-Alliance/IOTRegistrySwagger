@@ -17,7 +17,7 @@ function messageSigner(message, privKeyString) {
     return bitcore.crypto.ECDSA.sign(messageBytes, privKey).toBuffer();
 }
 
-exports.generateRegisterNameSig = function(args, res, next) {
+exports.generateRegisterOwnerSig = function(args, res, next) {
   /**
    * generate signature for registerName
    *

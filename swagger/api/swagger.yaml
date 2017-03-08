@@ -66,7 +66,7 @@ paths:
         format: "text"
       - name: "Identities"
         in: "query"
-        description: "alternate identites of thing owner"
+        description: "alternate aliases of thing owner"
         required: true
         type: "array"
         items:
@@ -80,7 +80,7 @@ paths:
         format: "text"
       - name: "Signature"
         in: "query"
-        description: "sig of ownerName + identities + data + spec"
+        description: "sig of ownerName + Aliases + data + spec"
         required: true
         type: "string"
         format: "text"
@@ -216,11 +216,11 @@ paths:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "iotregistryware"
 
-  /generateRegisterNameSig:
+  /generateRegisterOwnerSig:
     post:
       summary: "generate signature for registerName"
       description: "generate signature for registerName"
-      operationId: "generateRegisterNameSig"
+      operationId: "generateRegisterOwnerSig"
       parameters:
       - name: "OwnerName"
         in: "query"
@@ -265,7 +265,7 @@ paths:
         format: "text"
       - name: "Identities"
         in: "query"
-        description: "identities of thing owner"
+        description: "Aliases of thing owner"
         required: true
         type: "array"
         items:
