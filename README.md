@@ -4,7 +4,7 @@ This is a RESTful API for the IOTRegistry chaincode. It was generated using Swag
 
 ## Usage
 
-<img src="https://github.com/robertnowell/hangman/blob/master/images/main.png" 
+<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/swagger.png" 
 alt="main" border="10"/>
 
 This is swagger user interface. There are nine commands.  
