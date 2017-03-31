@@ -43,7 +43,7 @@ iotregistrylib.prototype.createKeys = function() {
     return { publicKey: key.publicKey.toString(), privateKey: key.toString(), address: key_hash.slice(0,20).toString('hex') };
 }
 
-tuxedopopslib.prototype.registrant = function({ user, registrantName, data }) {
+iotregistrylib.prototype.registrant = function({ user, registrantName, data }) {
     var self = this;
     console.log('registrant');
     return new Promise(function(resolve, reject) {
@@ -61,7 +61,7 @@ tuxedopopslib.prototype.registrant = function({ user, registrantName, data }) {
 }
 
 
-tuxedopopslib.prototype.thing = function({ nonce, aliases, user, data, spec }) {
+iotregistrylib.prototype.thing = function({ nonce, aliases, user, data, spec }) {
     var self = this;
     console.log('thing');
     return new Promise(function(resolve, reject) {
@@ -79,7 +79,7 @@ tuxedopopslib.prototype.thing = function({ nonce, aliases, user, data, spec }) {
 }
 
 
-tuxedopopslib.prototype.spec = function({ specName, user, data }) {
+iotregistrylib.prototype.spec = function({ specName, user, data }) {
     var self = this;
     console.log('spec');
     return new Promise(function(resolve, reject) {
