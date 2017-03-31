@@ -63,10 +63,8 @@ The chaincode name is what follows the second dash, highlighted in the image abo
 
 7. Update IOTRegistrySwagger/examples/config.js to reflect the newly deployed chaincode name. Run the following command:
 
-```
-export IOTREGISTRY_CHAINCODE_NAME=<chaincode_name>
-```
-with \<chaincode_name> updated to the value of the chaincode's name.
+env.sh \<machine_name> \<chaincode_name>
+
 
 8. Run the command 
 
