@@ -3,7 +3,7 @@ var hfc = require('hfc');
 var WebHooks = require('node-webhooks');
 var Types = require('./types.js');
 var RegisterThingTX = Types.RegisterThingTX;
-var RegisterIdentityTX = Types.RegisterIdentityTX;
+var CreateRegistrantTX = Types.CreateRegistrantTX;
 var RegisterSpecTX = Types.RegisterSpecTX;
 var USER;
 var MEMBER_SERVICES;
@@ -19,6 +19,7 @@ var webhookname = "DefaultWebhook";
 console.log('config', config);
 chain.setKeyValStore(hfc.newFileKeyValStore(config.store.path));
 
+console.log(Types)
 
 // Call this function after importing the docproofware library Arguments are optional and overrride the defaults.
 var initialize = function (ca, peer, hl_events, user, pem, chaincodeName, cb) {
@@ -108,16 +109,16 @@ function deployBracketStore(user, cb) {
     });
 }
 
-function registerOwner(opts, user) {
-    var args = new RegisterIdentityTX()
+function registrantPOST(opts, user) {
+    var args = new CreateRegistrantTX()
 
-    args.OwnerName = opts.OwnerName
-    args.PubKey = new Buffer(opts.Pubkey, 'hex');
+    args.RegistrantName = opts.RegistrantName
+    args.RegistrantPubKey = new Buffer(opts.RegistrantPubkey, 'hex');
     args.Signature = new Buffer(opts.Signature, 'hex');
     args.Data = opts.Data;
 
     return new Promise(function (resolve, reject) {
-        invoke(user, 'registerOwner', args.encode().toString('hex'), function (err, data) {
+        invoke(user, 'createRegistrant', args.encode().toString('hex'), function (err, data) {
             if (err) {
                 reject(err);
             }
@@ -134,12 +135,12 @@ function registerThing(opts, user) {
     args.Nonce = new Buffer(opts.Nonce, 'hex');
     // console.log("Nonce: " + opts.Nonce)
 
-    args.Identities = []
-    opts.Identities.forEach(function(o) {
-        args.Identities.push(o);
+    args.Aliases = []
+    opts.Aliases.forEach(function(o) {
+        args.Aliases.push(o);
     })
     // console.log("\n\nidentities:\n" + args.Identities)
-    args.OwnerName = opts.OwnerName
+    args.RegistrantPubkey = opts.RegistrantPubkey
     args.Signature = new Buffer(opts.Signature, 'hex');
     args.Data = opts.Data;
     args.Spec = opts.Spec;
@@ -162,7 +163,7 @@ function registerSpec(opts, user) {
     var args = new RegisterSpecTX()
 
     args.SpecName = opts.SpecName
-    args.OwnerName = opts.OwnerName
+    args.RegistrantPubkey = opts.RegistrantPubkey
     args.Signature = new Buffer(opts.Signature, 'hex');
     args.Data = opts.Data;
 
@@ -178,9 +179,9 @@ function registerSpec(opts, user) {
     });
 }
 
-function owner(ownerName, user) {
+function registrantGET(RegistrantPubkey, user) {
     return new Promise(function (resolve, reject) {
-        query(user, 'owner', ownerName, function (err, data, txid) {
+        query(user, 'owner', RegistrantPubkey, function (err, data, txid) {
             if (err) {
                 reject(err);
             } else {
@@ -282,11 +283,11 @@ function invoke(user, func, args, cb) {
 }
 
 module.exports = {
-    initialize:    initialize,
-    registerOwner: registerOwner,
-    registerThing: registerThing,
-    registerSpec:  registerSpec,
-    owner:         owner,
-    thing:         thing,
-    spec:          spec,
-};
+    initialize:         initialize,
+    registrantPOST:         registrantPOST,
+    registerThing:      registerThing,
+    registerSpec:       registerSpec,
+    registrantGET:         registrantGET,
+    thing:              thing,
+    spec:               spec,
+};      

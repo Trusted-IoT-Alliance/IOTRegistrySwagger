@@ -13,13 +13,13 @@ module.exports = require('protobufjs').newBuilder({})['import']({
                 {
                     "rule": "repeated",
                     "type": "string",
-                    "name": "Identities",
+                    "name": "Aliases",
                     "id": 2
                 },
                 {
                     "rule": "optional",
                     "type": "string",
-                    "name": "OwnerName",
+                    "name": "RegistrantPubkey",
                     "id": 3
                 },
                 {
@@ -43,18 +43,18 @@ module.exports = require('protobufjs').newBuilder({})['import']({
             ]
         },
         {
-            "name": "RegisterIdentityTX",
+            "name": "CreateRegistrantTX",
             "fields": [
                 {
                     "rule": "optional",
                     "type": "string",
-                    "name": "OwnerName",
+                    "name": "RegistrantName",
                     "id": 1
                 },
                 {
                     "rule": "optional",
                     "type": "bytes",
-                    "name": "PubKey",
+                    "name": "RegistrantPubKey",
                     "id": 2
                 },
                 {
@@ -83,7 +83,7 @@ module.exports = require('protobufjs').newBuilder({})['import']({
                 {
                     "rule": "optional",
                     "type": "string",
-                    "name": "OwnerName",
+                    "name": "RegistrantPubkey",
                     "id": 2
                 },
                 {
