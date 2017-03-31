@@ -11,47 +11,47 @@ This is the swagger user interface. There are nine commands.
 
 Three are for generating signatures:  
 
-1. generateRegisterOwnerSig 
+1. createRegistrantSig 
 2. generateRegisterThingSig 
 3. generateRegisterSpecSig 
 
 There are three for registering a type to the ledger:
 
-1. registerOwner  
+1. createRegistrant  
 2. registerThing  
 3. registerSpec  
 
 And there are three commands for querying the ledger:
 
-1. owner  
+1. registrant  
 2. thing  
 3. spec  
   
   
 Here is a brief description of each different type of registration:
 
-1. Register an owner  
-    This allows for the user to put an "Owner: \<name>" state to the ledger. An owner is an entity that has control over things on the ledger.
+1. Create a registrant  
+    This allows for the user to put an "RegistrantPubkey: \<pubkey>" state to the ledger. A registrant is an entity that has control over things on the ledger.
 2. Register a thing  
-    A thing is an iot device. It can include a set of aliases of its owner, which allows for the thing to be connected to multiple names shared by the same owner.
+    A thing is an iot device. It can include a set of aliases of its registrant, which allows for the thing to be connected to multiple names shared by the same owner.
 3. Register a spec  
     A spec or specification is a specific description of a thing with pertinent information about the thing.
 
-Next let's go through a sample registration and query for owner, thing, and spec. In order to register a thing or a spec, an owner must first be registered.  
+Next let's go through a sample registration and query for registrant, thing, and spec. In order to register a thing or a spec, an registrant must first be registered.  
 
-### Owner
+### Registrant
 
-First, create a registerOwnerSig. With the fields filled in, click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/ownerSig.png" 
+First, create a createRegistrantSig. With the fields filled in, click "try it out". A successful result looks like the following:  
+<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/createRegistrantSig.png" 
 alt="main" border="10"/>
-Copy the signature in response body. This is used for registerOwner, at the top of the swagger ui page.  
+Copy the signature in response body. This is used for createRegistrant, at the top of the swagger ui page.  
 
 Fill in the appropriate fields and click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/ownerRegister.png" 
+<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/createRegistrant.png" 
 alt="main" border="10"/>
   
-To check that the owner has in fact been registered, we query the ledger:
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/ownerQuery.png" 
+To check that the registrant has in fact been registered, we query the ledger:
+<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/registrantQuery.png" 
 alt="main" border="10"/>
 
 ### Thing
