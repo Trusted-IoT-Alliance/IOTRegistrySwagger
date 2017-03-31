@@ -2,6 +2,80 @@
 
 This is a RESTful API for the IOTRegistry chaincode. It was generated using Swagger, and provides for a ui for testing and debugging.
 
+
+## Setup
+
+This API allows for interaction with a live blockchain through a convenient user interface in order to perform IOT related blockchain registration. Thus, it is required that a live instance of hyperledger v.6 is available to the swagger. To set up an instance of hyperledger:
+
+1. Create an amazon ubuntu instance, and add it to an appropriate hyperledger security group.
+
+2. Setup Docker and Docker-compose
+
+        https://docs.docker.com/engine/getstarted/linux_install_help/
+
+        https://docs.docker.com/compose/install/
+
+3. Setup hypledger
+
+    https://github.com/IBM-Blockchain/fabric-boilerplate#setting-up-hyperledger-fabric
+
+Part of this setup process will involve setting up registration on hyperledger with a virtual machine. There are two curl commands relevant to this:
+```
+curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
+  \"enrollId\": \"test_user0\",
+  \"enrollSecret\": \"MS9qrN8hFjlE\"
+}" "http://<vm_identifier>:7050/chaincode"
+```
+vm_identifier should be updated based on the identifier of the vm being used.
+
+The second relevant curl command deploys the chaincode:
+```
+curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
+  \"jsonrpc\": \"2.0\",
+  \"method\": \"deploy\",
+  \"params\": {
+    \"type\": 1,
+    \"chaincodeID\": {
+\"path\": \"https://github.com/InternetofTrustedThings/IOTRegistry\"    },
+    \"ctorMsg\": {
+      \"function\": \"init\",
+      \"args\": [\"\"]
+    },
+    \"secureContext\": \"test_user0\"
+  },
+  \"id\": 0
+}" "http://<vm_identifier>:7050/chaincode"
+```
+
+4. Clone the IOTRegistrySwagger repository.
+
+5. run the following command: 
+```
+npm install
+```
+
+6. Copy the chaincode name. To find the chaicode name, run the command sudo docker ps -a on the virtual machine running hyperledger after running the second curl command.
+
+<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/ps-a.png" 
+alt="main" border="10"/>
+
+The chaincode name is what follows the second dash, highlighted in the image above.
+
+7. Update IOTRegistrySwagger/examples/config.js to reflect the newly deployed chaincode name. Run the following command:
+
+```
+export IOTREGISTRY_CHAINCODE_NAME=<chaincode_name>
+```
+with \<chaincode_name> updated to the value of the chaincode's name.
+
+8. Run the command 
+
+```
+node swagger
+```
+
+9. Navigate to localhost:8082/docs
+
 ## Usage
 
 <img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/swagger.png" 
