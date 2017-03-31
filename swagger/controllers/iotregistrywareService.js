@@ -17,17 +17,20 @@ function messageSigner(message, privKeyString) {
     return bitcore.crypto.ECDSA.sign(messageBytes, privKey).toBuffer();
 }
 
-exports.generateRegisterNameSig = function(args, res, next) {
+exports.createRegistrantSig = function(args, res, next) {
   /**
    * generate signature for registerName
    *
-   * ownerName String name of owner
+   * RegistrantName String name of Registrant
    * data String 
-   * privateKeyStr String owner private key as string
+   * privateKeyStr String Registrant private key as string
    * returns String
    **/
-  if(!args.OwnerName || !args.OwnerName.value) {
-      throw new Error('missing owner name');
+  if(!args.RegistrantName || !args.RegistrantName.value) {
+      throw new Error('missing registrant name');
+  }
+  if(!args.RegistrantPubkey || !args.RegistrantPubkey.value) {
+      throw new Error('missing registrant pubkey');
   }
   if(!args.Data || !args.Data.value) {
       throw new Error('missing data');
@@ -35,7 +38,7 @@ exports.generateRegisterNameSig = function(args, res, next) {
   if(!args.PrivateKeyStr || !args.PrivateKeyStr.value) {
       throw new Error('missing PrivateKey');
   }
-  var message = args.OwnerName.value + ':' + args.Data.value;
+  var message = args.RegistrantName.value + ':' + args.RegistrantPubkey.value + ":" + args.Data.value;
   console.log("\n\nmessage:" + message)
 
   var sig = messageSigner(message, args.PrivateKeyStr.value);
@@ -48,16 +51,16 @@ exports.generateRegisterSpecSig = function(args, res, next) {
    * generate signature for registerSpec
    *
    * specName String name of spec
-   * ownerName String name of owner
+   * RegistrantName String name of Registrant
    * data String 
-   * privateKeyStr String owner private key as string
+   * privateKeyStr String Registrant private key as string
    * returns String
    **/
   if(!args.SpecName || !args.SpecName.value) {
       throw new Error('missing spec');
   }
-  if(!args.OwnerName || !args.OwnerName.value) {
-      throw new Error('missing owner name');
+  if(!args.RegistrantPubkey || !args.RegistrantPubkey.value) {
+      throw new Error('missing Registrant name');
   }
   if(!args.Data || !args.Data.value) {
       throw new Error('missing data');
@@ -65,7 +68,7 @@ exports.generateRegisterSpecSig = function(args, res, next) {
   if(!args.PrivateKeyStr || !args.PrivateKeyStr.value) {
       throw new Error('missing PrivateKey');
   }
-  var message = args.SpecName.value + ":" + args.OwnerName.value + ":" + args.Data.value;
+  var message = args.SpecName.value + ":" + args.RegistrantPubkey.value + ":" + args.Data.value;
   console.log("\n\nmessage:" + message)
 
   var sig = messageSigner(message, args.PrivateKeyStr.value);
@@ -77,19 +80,19 @@ exports.generateRegisterThingSig = function(args, res, next) {
   /**
    * generate signature for registerThing
    *
-   * ownerName String name of owner
-   * identities List identities of thing owner
+   * RegistrantName String name of Registrant
+   * aliases List aliases of thing Registrant
    * spec String spec info
    * data String thing info
-   * privateKeyStr String owner private key as string
+   * privateKeyStr String Registrant private key as string
    * returns String
    **/
 
-  if(!args.OwnerName || !args.OwnerName.value) {
-      throw new Error('missing owner name');
+  if(!args.RegistrantPubkey || !args.RegistrantPubkey.value) {
+      throw new Error('missing Registrant name');
   }
-  if(!args.Identities || !args.Identities.value || !args.Identities.value.length) {
-      throw new Error('missing list of identities');
+  if(!args.Aliases || !args.Aliases.value || !args.Aliases.value.length) {
+      throw new Error('missing list of aliases');
   }
   if(!args.Spec || !args.Spec.value) {
       throw new Error('missing spec');
@@ -100,24 +103,24 @@ exports.generateRegisterThingSig = function(args, res, next) {
   if(!args.PrivateKeyStr || !args.PrivateKeyStr.value) {
       throw new Error('missing PrivateKey');
   }
-  var message = args.OwnerName.value
+  var message = args.RegistrantPubkey.value
 
-  args.Identities.value.forEach(function(o) {
+  args.Aliases.value.forEach(function(o) {
       message +=  ':' + o;
   });
   message += ':' + args.Data.value + ":" + args.Spec.value;
 
   var sig = messageSigner(message, args.PrivateKeyStr.value);
-  console.log("\n\nmessage: (%s)\nprivate key: (%s)\nsig: (%s)\n\n\n", message, args.PrivateKeyStr, sig.toString('hex'))
+  console.log("\n\nsigned thing message:\n%s\nprivate key: (%s)\nsig: (%s)\n\n\n", message, args.PrivateKeyStr, sig.toString('hex'))
 
   res.end(JSON.stringify({sig: sig.toString('hex')}));
 }
 
-exports.ownerGET = function(args, res, next) {
+exports.registrantGET = function(args, res, next) {
   /**
-   * get owner info
+   * get registrant info
    *
-   * ownerName String name of owner
+   * registrantPubkey String
    * returns String
    **/
   var timerID = setTimeout(function() {
@@ -126,7 +129,7 @@ exports.ownerGET = function(args, res, next) {
       }));
   }, 45000);
 
-  iotregistryware.owner(args.OwnerName.value, USER)
+  iotregistryware.registrantGET(args.RegistrantPubkey.value, USER)
   .then(function(data) {
       console.log('data', data);
       if (data.data.result.toString() === '{}') {
@@ -134,6 +137,7 @@ exports.ownerGET = function(args, res, next) {
           res.end();
           clearTimeout(timerID);
       } else {
+          console.log("\n\n\nhere\n\n\n")
           res.end(data.data.result.toString());
           clearTimeout(timerID);
       }
@@ -207,12 +211,12 @@ exports.thingGET = function(args, res, next) {
   });
 }
 
-exports.ownerNamePOST = function(args, res, next) {
+exports.registrantPOST = function(args, res, next) {
   /**
-   * register owner name to ledger
+   * register Registrant name to ledger
    *
-   * ownerName String Name of owner
-   * pubkey String Public key of owner
+   * RegistrantPubkey
+   * pubkey String Public key of Registrant
    * signature String Sig of name and data
    * data String data for registerOwnerName
    * returns Boolean
@@ -225,17 +229,17 @@ exports.ownerNamePOST = function(args, res, next) {
   }, 45000);
 
   var opts = {
-      OwnerName: args.OwnerName.value,
-      Pubkey: args.Pubkey.value,
+      RegistrantName: args.RegistrantName.value,
+      RegistrantPubkey: args.RegistrantPubkey.value,
       Signature: args.Signature.value,
       Data: args.Data.value,
   }
 
-  if(!opts.OwnerName) {
-      throw new Error('missing owner name');
+  if(!opts.RegistrantName) {
+      throw new Error('missing Registrant name');
   }
 
-  if(!opts.Pubkey) {
+  if(!opts.RegistrantPubkey) {
       throw new Error('missing public key');
   }
 
@@ -247,7 +251,7 @@ exports.ownerNamePOST = function(args, res, next) {
       throw new Error('missing data');
   }
 
-  iotregistryware.registerOwner(opts, USER)
+  iotregistryware.registrantPOST(opts, USER)
   .then(function(result) {
       res.end(JSON.stringify(result));
       clearTimeout(timerID);
@@ -264,8 +268,8 @@ exports.specPOST = function(args, res, next) {
    * register specification to ledger
    *
    * specName String name of specification
-   * ownerName String name of spec owner
-   * signature String sig of owner name + data
+   * RegistrantPubkey
+   * signature String sig of Registrant name + data
    * data String specification data
    * returns String
    **/
@@ -278,7 +282,7 @@ exports.specPOST = function(args, res, next) {
 
   var opts = {
       SpecName: args.SpecName.value,
-      OwnerName: args.OwnerName.value,
+      RegistrantPubkey: args.RegistrantPubkey.value,
       Signature: args.Signature.value,
       Data: args.Data.value,
   }
@@ -286,8 +290,8 @@ exports.specPOST = function(args, res, next) {
   if(!opts.SpecName) {
       throw new Error('missing spec name');
   }
-  if(!opts.OwnerName) {
-      throw new Error('missing OwnerName');
+  if(!opts.RegistrantPubkey) {
+      throw new Error('missing RegistrantPubkey');
   }
   if(!opts.Signature) {
       throw new Error('missing signature');
@@ -313,8 +317,8 @@ exports.thingPOST = function(args, res, next) {
    * register thing
    *
    * nonce String Nonce for thing
-   * identities List alternate identites of thing owner
-   * ownerName String name of thing owner
+   * identities List alternate identites of thing Registrant
+   * RegistrantPubkey
    * signature String sig of nonce + identities + data + spec
    * data String thing data
    * spec String spec for thing
@@ -329,8 +333,8 @@ exports.thingPOST = function(args, res, next) {
 
   var opts = {
       Nonce:      args.Nonce.value,
-      Identities: args.Identities.value,
-      OwnerName:  args.OwnerName.value,
+      Aliases: args.Aliases.value,
+      RegistrantPubkey:  args.RegistrantPubkey.value,
       Signature:  args.Signature.value,
       Data:       args.Data.value,
       Spec:       args.Spec.value,
@@ -339,11 +343,11 @@ exports.thingPOST = function(args, res, next) {
   if(!opts.Nonce) {
       throw new Error('missing nonce');
   }
-  if(!opts.Identities) {
-      throw new Error('missing list of identities');
+  if(!opts.Aliases) {
+      throw new Error('missing list of aliases');
   }
-  if(!opts.OwnerName) {
-      throw new Error('missing owner name');
+  if(!opts.RegistrantPubkey) {
+      throw new Error('missing registrant pubkey');
   }
   if(!opts.Signature) {
       throw new Error('missing signature');

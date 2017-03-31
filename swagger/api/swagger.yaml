@@ -11,21 +11,21 @@ schemes:
 produces:
 - "application/json"
 paths:
-  /registerOwner:
+  /registrant:
     post:
-      summary: "register owner name"
-      description: "register owner name to ledger"
-      operationId: "ownerNamePOST"
+      summary: "create registrant"
+      description: " "
+      operationId: "registrantPOST"
       parameters:
-      - name: "OwnerName"
+      - name: "RegistrantName"
         in: "query"
-        description: "Name of owner"
+        description: "Name of registrant"
         required: true
         type: "string"
         format: "text"
-      - name: "Pubkey"
+      - name: "RegistrantPubkey"
         in: "query"
-        description: "Public key of owner"
+        description: "Public key of registrant"
         required: true
         type: "string"
         format: "text"
@@ -51,7 +51,27 @@ paths:
           schema:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "iotregistryware"
-
+    get:
+      summary: "registrant"
+      description: "get registrant info"
+      operationId: "registrantGET"
+      parameters:
+      - name: "RegistrantPubkey"
+        in: "query"
+        description: "name of registrant"
+        required: true
+        type: "string"
+        format: "text"
+      responses:
+        200:
+          description: "registrant info"
+          schema:
+            type: "string"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "iotregistryware"
   /registerThing:
     post:
       summary: "thing"
@@ -64,17 +84,17 @@ paths:
         required: true
         type: "string"
         format: "text"
-      - name: "Identities"
+      - name: "Aliases"
         in: "query"
-        description: "alternate identites of thing owner"
+        description: "alternate identites of thing registrant"
         required: true
         type: "array"
         items:
           type: "string"
         collectionFormat: "csv"
-      - name: "OwnerName"
+      - name: "RegistrantPubkey"
         in: "query"
-        description: "name of thing owner"
+        description: "name of thing registrant"
         required: true
         type: "string"
         format: "text"
@@ -119,15 +139,15 @@ paths:
         required: true
         type: "string"
         format: "text"
-      - name: "OwnerName"
+      - name: "RegistrantPubkey"
         in: "query"
-        description: "name of spec owner"
+        description: "name of spec registrant"
         required: true
         type: "string"
         format: "text" 
       - name: "Signature"
         in: "query"
-        description: "sig of owner name + data"
+        description: "sig of registrant name + data"
         required: true
         type: "string"
         format: "text"
@@ -148,28 +168,6 @@ paths:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "iotregistryware"
 
-  /owner:
-    get:
-      summary: "owner"
-      description: "get owner info"
-      operationId: "ownerGET"
-      parameters:
-      - name: "OwnerName"
-        in: "query"
-        description: "name of owner"
-        required: true
-        type: "string"
-        format: "text"
-      responses:
-        200:
-          description: "owner info"
-          schema:
-            type: "string"
-        default:
-          description: "Unexpected error"
-          schema:
-            $ref: "#/definitions/Error"
-      x-swagger-router-controller: "iotregistryware"
   /thing:
     get:
       summary: "thing"
@@ -216,15 +214,21 @@ paths:
             $ref: "#/definitions/Error"
       x-swagger-router-controller: "iotregistryware"
 
-  /generateRegisterNameSig:
+  /createRegistrantSig:
     post:
-      summary: "generate signature for registerName"
-      description: "generate signature for registerName"
-      operationId: "generateRegisterNameSig"
+      summary: "generate signature for Registrant"
+      description: "generate signature for Registrant"
+      operationId: "createRegistrantSig"
       parameters:
-      - name: "OwnerName"
+      - name: "RegistrantName"
         in: "query"
-        description: "name of owner"
+        description: "name of registrant"
+        required: true
+        type: "string"
+        format: "text"
+      - name: "RegistrantPubkey"
+        in: "query"
+        description: "pubkey of registrant"
         required: true
         type: "string"
         format: "text"
@@ -236,7 +240,7 @@ paths:
         format: "text"
       - name: "PrivateKeyStr"
         in: "query"
-        description: "owner private key as string"
+        description: "registrant private key as string"
         required: true
         type: "string"
         format: "text"
@@ -257,15 +261,15 @@ paths:
       description: "generate signature for registerThing"
       operationId: "generateRegisterThingSig"
       parameters:
-      - name: "OwnerName"
+      - name: "RegistrantPubkey"
         in: "query"
-        description: "name of owner"
+        description: "name of registrant"
         required: true
         type: "string"
         format: "text"
-      - name: "Identities"
+      - name: "Aliases"
         in: "query"
-        description: "identities of thing owner"
+        description: "Aliases of thing registrant"
         required: true
         type: "array"
         items:
@@ -284,7 +288,7 @@ paths:
         format: "text"
       - name: "PrivateKeyStr"
         in: "query"
-        description: "owner private key as string"
+        description: "registrant private key as string"
         required: true
         type: "string"
         format: "text"
@@ -310,9 +314,9 @@ paths:
         required: true
         type: "string"
         format: "text"
-      - name: "OwnerName"
+      - name: "RegistrantPubkey"
         in: "query"
-        description: "name of owner"
+        description: "name of registrant"
         required: true
         type: "string"
         format: "text"
@@ -324,7 +328,7 @@ paths:
         format: "text"
       - name: "PrivateKeyStr"
         in: "query"
-        description: "owner private key as string"
+        description: "registrant private key as string"
         required: true
         type: "string"
         format: "text"
