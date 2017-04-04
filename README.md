@@ -36,7 +36,7 @@ curl -X POST --header "Content-Type: application/json" --header "Accept: applica
   \"params\": {
     \"type\": 1,
     \"chaincodeID\": {
-\"path\": \"https://github.com/InternetofTrustedThings/IOTRegistry\"    },
+\"path\": \"https://github.com/Trusted-IoT-Alliance/IOTRegistry\"    },
     \"ctorMsg\": {
       \"function\": \"init\",
       \"args\": [\"\"]
@@ -56,7 +56,7 @@ npm install
 
 6. Copy the chaincode name. To find the chaicode name, run the command sudo docker ps -a on the virtual machine running hyperledger after running the second curl command.
 
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/ps-a.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/ps-a.png" 
 alt="main" border="10"/>
 
 The chaincode name is what follows the second dash, highlighted in the image above.
@@ -76,7 +76,7 @@ node swagger
 
 ## Usage
 
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/swagger.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/swagger.png" 
 alt="main" border="10"/>
 
 This is the swagger user interface. There are nine commands.  
@@ -114,46 +114,46 @@ Next let's go through a sample registration and query for registrant, thing, and
 ### Registrant
 
 First, create a createRegistrantSig. With the fields filled in, click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/createRegistrantSig.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/createRegistrantSig.png" 
 alt="main" border="10"/>
 Copy the signature in response body. This is used for createRegistrant, at the top of the swagger ui page.  
 
 Fill in the appropriate fields and click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/createRegistrant.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/createRegistrant.png" 
 alt="main" border="10"/>
   
 To check that the registrant has in fact been registered, we query the ledger:
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/registrantQuery.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/registrantQuery.png" 
 alt="main" border="10"/>
 
 ### Thing
 
 First, create a registerThingSig. With the fields filled in, click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/thingSig.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/thingSig.png" 
 alt="main" border="10"/>
 Copy the signature in response body. This is used for registerThing, located towards the top of the swagger ui page.  
 
 Things are indexed by nonces, and a nonce must be a valid, lowercase hex string. Fill in the appropriate fields and click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/thingRegister.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/thingRegister.png" 
 alt="main" border="10"/>
   
 To check that the thing has in fact been registered, we query the ledger:
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/thingQuery.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/thingQuery.png" 
 alt="main" border="10"/>
 
 ### Spec
 
 First, create a registerSpecSig. With the fields filled in, click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/specSig.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/specSig.png" 
 alt="main" border="10"/>
 Copy the signature in response body. This is used for registerSpec, located towards the top of the swagger ui page.  
 
 Fill in the appropriate fields and click "try it out". A successful result looks like the following:  
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/specRegister.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/specRegister.png" 
 alt="main" border="10"/>
   
 To check that the spec has in fact been registered, we query the ledger:
-<img src="https://github.com/InternetofTrustedThings/IOTRegistrySwagger/blob/master/images/specQuery.png" 
+<img src="https://github.com/Trusted-IoT-Alliance/IOTRegistrySwagger/blob/master/images/specQuery.png" 
 alt="main" border="10"/>
 
 
