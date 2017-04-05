@@ -24,7 +24,7 @@ Part of this setup process will involve setting up registration on hyperledger w
 curl -X POST --header "Content-Type: application/json" --header "Accept: application/json" -d "{
   \"enrollId\": \"test_user0\",
   \"enrollSecret\": \"MS9qrN8hFjlE\"
-}" "http://<vm_identifier>:7050/chaincode"
+}" "http://<vm_identifier>:7050/registrar"
 ```
 vm_identifier should be updated based on the identifier of the vm being used.
 
