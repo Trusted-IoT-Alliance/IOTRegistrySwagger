@@ -56,7 +56,7 @@ var initialize = function (ca, peer, hl_events, user, pem, chaincodeName, cb) {
 function configChain(pem) {
     chain.setMemberServicesUrl(MEMBER_SERVICES, { pem: pem });
     chain.addPeer(HYPERLEDGER_PEER, { pem: pem });
-    chain.eventHubConnect(HL_EVENTS, { pem: pem });
+//    chain.eventHubConnect(HL_EVENTS, { pem: pem });
 }
 
 function getUser(creds, cb) {
@@ -191,9 +191,9 @@ function registrantGET(RegistrantPubkey, user) {
     });
 }
 
-function thing(nonce, user) {
+function thing(alias, user) {
     return new Promise(function (resolve, reject) {
-        query(user, 'thing', nonce, function (err, data, txid) {
+        query(user, 'thing', alias, function (err, data, txid) {
             if (err) {
                 reject(err);
             } else {

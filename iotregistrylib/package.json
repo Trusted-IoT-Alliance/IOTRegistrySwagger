@@ -1,9 +1,0 @@
-{
-  "name": "iotregistrylib",
-  "version": "0.0.1",
-  "dependencies": {
-    "bitcore-lib": "^0.14.0",
-    "isomorphic-fetch": "^2.2.1",
-    "request": "^2.81.0"
-  }
-}

@@ -1,5 +1,4 @@
 var fs = require('fs');
-var bitcore = require('bitcore-lib');
 var config = {
     host: process.env.FQDN || 'localhost',
     port: process.env.IOTREGISTRY_PORT || 8082,

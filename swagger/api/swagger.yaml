@@ -174,7 +174,7 @@ paths:
       description: "get thing info"
       operationId: "thingGET"
       parameters:
-      - name: "ThingNonce"
+      - name: "Alias"
         in: "query"
         description: "Nonce of thing"
         required: true

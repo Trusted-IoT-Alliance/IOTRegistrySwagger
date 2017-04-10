@@ -193,7 +193,7 @@ exports.thingGET = function(args, res, next) {
   }, 45000);
 
   console.log("\n\nargs: " + args + "\n\n\n")
-  iotregistryware.thing(args.ThingNonce.value, USER)
+  iotregistryware.thing(args.Alias.value, USER)
   .then(function(data) {
       console.log('data', data);
       if (data.data.result.toString() === '{}') {
